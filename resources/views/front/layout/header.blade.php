@@ -1,7 +1,7 @@
 <?php
-// use App\Models\Category;
+use App\Models\Category;
 //Get Categories and Sub Categories
-// $categories = Category::getCategories();
+$categories = Category::getCategories();
 // echo "<pre>"; print_r($categories); die;
 ?>
 
@@ -26,7 +26,7 @@
                                 href="{{ url('/') }}" id="menu-item-home" aria-haspopup="true"
                                 aria-expanded="false">Home</a>
 
-                         </li>
+                        </li>
                         <li
                             class="nav-item transition-all-xl-1 py-11 me-xxl-12 me-xl-10 dropdown dropdown-hover dropdown-fullwidth position-static">
                             <a class="nav-link d-flex justify-content-between position-relative py-0 px-0 text-uppercase fw-semibold ls-1 fs-14px dropdown-toggle"
@@ -69,7 +69,6 @@
 
                     </ul>
                 </div>
-
                 @endforeach
             </div>
         </div>
@@ -84,11 +83,19 @@
 
     </ul>
     </div>
-    <a href="index-2.html" class="navbar-brand px-8 py-4 mx-auto">
-        <img class="light-mode-img" src="{{ asset('front/assets/images/others/logo.png') }}" width="179"
+
+    <a href="{{ url('/') }}" class="navbar-brand px-8 py-4 mx-auto"
+        style="font-size: 30px;
+        font-weight: bold;
+        font-family: 'Lobster', cursive;">
+        AQLY
+    </a>
+
+    {{-- <a href="index-2.html" class="navbar-brand px-8 py-4 mx-auto">
+        <img class="light-mode-img" src="{{ asset('front/assets/images/others/t1.png') }}" width="179"
             height="26" alt="Glowing - Bootstrap 5 HTML Templates">
-        <img class="dark-mode-img" src="{{ asset('front/assets/images/others/logo-white.png') }}" width="179"
-            height="26" alt="Glowing - Bootstrap 5 HTML Templates"></a>
+        <img class="dark-mode-img" src="{{ asset('front/assets/images/others/t2.png') }}" width="179"
+            height="26" alt="Glowing - Bootstrap 5 HTML Templates"></a> --}}
     <div class="icons-actions d-flex justify-content-end w-xl-50 fs-28px text-body-emphasis">
 
         {{-- <div class="px-5 d-none d-xl-inline-block">
@@ -102,7 +109,8 @@
             </a>
         </div> --}}
         <div class="px-5 d-none d-xl-inline-block">
-            <a class="position-relative lh-1 color-inherit text-decoration-none" href="{{ url('cart') }}" id="cartLink">
+            <a class="position-relative lh-1 color-inherit text-decoration-none" href="{{ url('cart') }}"
+                id="cartLink">
                 <svg class="icon icon-star-light">
                     <use xlink:href="#icon-shopping-bag-open-light"></use>
                 </svg>
@@ -162,32 +170,33 @@
         <div class="px-5 d-none d-xl-inline-block">
             @if (Route::has('login'))
                 @auth
-                <div class="dropdown pl-2 py-2">
-                    <a class="dropdown-toggle bd-theme btn btn-link nav-link d-inline-flex align-items-center justify-content-center text-primary p-0 position-relative rounded-circle" data-bs-toggle="dropdown"
-                        href="{{ url('/user/profile') }}" aria-expanded="true"
-                        data-bs-display="static" aria-label="{{ Auth::user()->name }}">
-                        <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"
-                            class="rounded-circle theme-icon-active" style="width: 30px; height: 30px;">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end w-100">
-                        <a class="dropdown-item" href="{{ route('profile.show') }}">My Profile</a>
-                        @if (Auth::user()->role == 1)
-                            <a class="dropdown-item" href="{{ url('admin/dashboard') }}">Admin Dashboard</a>
-                        @endif
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-                        </form>
+                    <div class="dropdown pl-2 py-2">
+                        <a class="dropdown-toggle bd-theme btn btn-link nav-link d-inline-flex align-items-center justify-content-center text-primary p-0 position-relative rounded-circle"
+                            data-bs-toggle="dropdown" href="{{ url('/user/profile') }}" aria-expanded="true"
+                            data-bs-display="static" aria-label="{{ Auth::user()->name }}">
+                            <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"
+                                class="rounded-circle theme-icon-active" style="width: 30px; height: 30px;">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end w-100">
+                            <a class="dropdown-item" href="{{ route('profile.show') }}">My Profile</a>
+                            @if (Auth::user()->role == 1)
+                                <a class="dropdown-item" href="{{ url('admin/dashboard') }}">Admin Dashboard</a>
+                            @endif
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                            </form>
+                        </div>
                     </div>
-                </div>
                 @else
-                <a href="{{ route('loginnew') }}" class="login-link">
-                    <svg class="icon icon-user-light">
-                        <use xlink:href="#icon-user-light"></use>
-                    </svg>
-                </a>
+                    <a href="{{ route('loginnew') }}" class="login-link">
+                        <svg class="icon icon-user-light">
+                            <use xlink:href="#icon-user-light"></use>
+                        </svg>
+                    </a>
                 @endauth
             @endif
         </div>

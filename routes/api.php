@@ -25,3 +25,10 @@ Route::get('/products', function () {
         'products' => $products
     ]);
 });
+
+Route::get('/users', function () {
+    $users = \App\Models\user::all();
+    return response()->json([
+        'users' => $users
+    ]);
+});
